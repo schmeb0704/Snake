@@ -1,3 +1,5 @@
+package Main;
+
 import DrawingHelpers.PlayArea;
 import SnakeBody.SnakeBody;
 
@@ -6,16 +8,16 @@ import java.awt.*;
 public class PlayManager {
     final int WIDTH = 400;
     final int HEIGHT = 400;
-    public int top_x;
+    public static int left_x;
     public int bottom_y;
     public int right_x;
     public int top_y;
     SnakeBody body;
 
     public PlayManager(){
-        top_x = (GamePanel.WIDTH / 2) - (WIDTH / 2);
+        left_x = (GamePanel.WIDTH / 2) - (WIDTH / 2);
         top_y = 50;
-        final int  SNAKE_START_X = 0;
+        final int  SNAKE_START_X = 100;
         final int  SNAKE_START_Y = 500;
 
         body = new SnakeBody();
@@ -33,7 +35,8 @@ public class PlayManager {
 
     public void drawComponent(Graphics2D graphics){
 //        PlayArea playArea = new PlayArea(top_x, top_y, WIDTH, HEIGHT);
-//        playArea.drawPlayArea(graphics);
+        PlayArea playArea = new PlayArea(left_x, top_y, WIDTH, HEIGHT);
+        playArea.drawPlayArea(graphics);
 
         // test moving rectangle
         body.drawBody(graphics);

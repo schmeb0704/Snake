@@ -1,3 +1,5 @@
+package Main;
+
 import Utils.KeyHandler;
 
 import javax.swing.*;
