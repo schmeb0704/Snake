@@ -34,9 +34,8 @@ public class PlayManager {
 
 
     public void drawComponent(Graphics2D graphics){
-//        PlayArea playArea = new PlayArea(top_x, top_y, WIDTH, HEIGHT);
-        PlayArea playArea = new PlayArea(left_x, top_y, WIDTH, HEIGHT);
-        playArea.drawPlayArea(graphics);
+//        PlayArea playArea = new PlayArea(left_x, top_y, WIDTH, HEIGHT);
+//        playArea.drawPlayArea(graphics);
 
         // test moving rectangle
         body.drawBody(graphics);
