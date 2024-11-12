@@ -13,24 +13,24 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if(code == KeyEvent.VK_W){
+        if(code == KeyEvent.VK_W && !downPressed){
             upPressed = true;
-            downPressed = leftPressed = rightPressed = false;
+            leftPressed = rightPressed = false;
         }
 
-        if(code == KeyEvent.VK_A){
+        if(code == KeyEvent.VK_A && !rightPressed){
             leftPressed = true;
-            rightPressed = upPressed = downPressed = false;
+            upPressed = downPressed = false;
         }
 
-        if(code == KeyEvent.VK_S){
+        if(code == KeyEvent.VK_S && !upPressed){
             downPressed = true;
-            upPressed = leftPressed = rightPressed = false;
+            leftPressed = rightPressed = false;
         }
 
-        if(code == KeyEvent.VK_D){
+        if(code == KeyEvent.VK_D && !leftPressed){
             rightPressed = true;
-            leftPressed = upPressed = downPressed = false;
+            upPressed = downPressed = false;
         }
 
 
