@@ -2,7 +2,7 @@ package Main;
 
 import DrawingHelpers.PlayArea;
 import Snake.SnakeFood;
-import SnakeBody.SnakeBody;
+import Snake.SnakeBody;
 
 import java.awt.*;
 
