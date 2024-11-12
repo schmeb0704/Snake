@@ -20,10 +20,19 @@ public class SnakeBody {
     public void edgeCollisionCheck(){
         leftEdgeCollision = rightEdgeCollision = topEdgeCollision = bottomEdgeCollision = false;
 
-        if(x+size == PlayManager.left_x){
+        if(x+size == GamePanel.WIDTH){
             leftEdgeCollision = true;
         }
 
+        if(x == 0){
+            rightEdgeCollision = true;
+        }
+        if(y == GamePanel.HEIGHT-50){
+            bottomEdgeCollision = true;
+        }
+        if(y == 0){
+            topEdgeCollision = true;
+        }
     }
 
     public void update(){
