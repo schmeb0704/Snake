@@ -3,11 +3,12 @@ package Snake;
 import java.awt.*;
 
 import Main.GamePanel;
+import Main.PlayManager;
 import Utils.KeyHandler;
 
 public class SnakeBody {
     public int x,y, right_x, bottom_y;
-    int size = 40;
+    int size = 30;
     int movementSpeed = 5;
     boolean leftEdgeCollision, rightEdgeCollision, topEdgeCollision, bottomEdgeCollision;
 
@@ -28,7 +29,7 @@ public class SnakeBody {
         if(x == 0){
             leftEdgeCollision = true;
         }
-        if(y == GamePanel.HEIGHT-50){
+        if(y + size == GamePanel.HEIGHT){
             bottomEdgeCollision = true;
         }
         if(y == 0){
@@ -64,6 +65,8 @@ public class SnakeBody {
                 x -= movementSpeed;
                 right_x -= movementSpeed;
             }
+        } else{
+            PlayManager.isGameOver = true;
         }
     }
 
