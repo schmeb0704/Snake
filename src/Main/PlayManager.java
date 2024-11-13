@@ -49,7 +49,7 @@ public class PlayManager {
     }
 
     public void update(){
-        if(KeyHandler.restartPressed){
+        if(isGameOver && KeyHandler.restartPressed){
             gameRestart();
         } else {
             body.update();
@@ -72,7 +72,8 @@ public class PlayManager {
         // draw paused
         if(isGameOver){
             graphics.setColor(Color.yellow);
-            graphics.drawString("GAME OVER! Press Shift to Restart", 400, 300);
+            graphics.setFont(graphics.getFont().deriveFont(18f));
+            graphics.drawString("GAME OVER! Press Shift to Restart", 330, 300);
         }
     }
 
