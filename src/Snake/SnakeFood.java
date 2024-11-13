@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class SnakeFood {
     public static int x, y;
-    static int size = 20;
+    static int size = 15;
     public static boolean isEaten = false;
 
     public void setCoordinates(int x, int y){

@@ -8,7 +8,7 @@ import Utils.KeyHandler;
 
 public class SnakeBody {
     public int x,y, right_x, bottom_y;
-    public  static int size = 30;
+    public  static int size = 35;
     int movementSpeed = 5;
     boolean leftEdgeCollision, rightEdgeCollision, topEdgeCollision, bottomEdgeCollision;
 
