@@ -1,6 +1,7 @@
 package Snake;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import Main.GamePanel;
 import Main.PlayManager;
@@ -11,34 +12,43 @@ public class SnakeBody {
     public  static int size = 35;
     int movementSpeed = 5;
     boolean leftEdgeCollision, rightEdgeCollision, topEdgeCollision, bottomEdgeCollision;
+    public static ArrayList<SnakeSegment> segments = new ArrayList<>();
+    SnakeSegment head;
+
+    public SnakeBody(){
+        segments.add(new SnakeSegment());
+        segments.add(new SnakeSegment());
+        head = segments.getFirst();
+    }
+
 
     public void setXY(int x, int y){
-        this.x = x;
-        this.y = y;
-        right_x = x + size;
-        bottom_y = y + size;
+        segments.getFirst().x = x;
+        segments.getFirst().y = y;
+        segments.getFirst().right_x = x + SnakeSegment.size;
+        segments.getFirst().bottom_y = x + SnakeSegment.size;
     }
 
     public void edgeCollisionCheck(){
         leftEdgeCollision = rightEdgeCollision = topEdgeCollision = bottomEdgeCollision = false;
 
-        if(x+size == GamePanel.WIDTH){
+        if(head.x + SnakeSegment.size == GamePanel.WIDTH){
             rightEdgeCollision = true;
         }
 
-        if(x == 0){
+        if(head.x == 0){
             leftEdgeCollision = true;
         }
-        if(y + size == GamePanel.HEIGHT){
+        if(head.y + size == GamePanel.HEIGHT){
             bottomEdgeCollision = true;
         }
-        if(y == 0){
+        if(head.y == 0){
             topEdgeCollision = true;
         }
     }
 
     public void checkFoodCollision(){
-        if(SnakeFood.x >= x && SnakeFood.x <= right_x && SnakeFood.y < bottom_y && SnakeFood.y > y){
+        if(SnakeFood.x >= head.x && SnakeFood.x <= head.right_x && SnakeFood.y < head.bottom_y && SnakeFood.y > head.y){
             SnakeFood.isEaten = true;
             SnakeFood.updateCoordinates();
         }
@@ -50,20 +60,28 @@ public class SnakeBody {
 
         if(!leftEdgeCollision && !rightEdgeCollision && !topEdgeCollision && !bottomEdgeCollision ){
             if(KeyHandler.downPressed){
-                y += movementSpeed;
-                bottom_y += movementSpeed;
+                for(SnakeSegment segment: segments){
+                    segment.y += movementSpeed;
+                    segment.bottom_y += movementSpeed;
+                }
             }
             if(KeyHandler.upPressed){
-                y -= movementSpeed;
-                bottom_y -= movementSpeed;
+                for(SnakeSegment segment: segments){
+                    segment.y -= movementSpeed;
+                    segment.bottom_y -= movementSpeed;
+                }
             }
             if(KeyHandler.rightPressed){
-                x += movementSpeed;
-                right_x += movementSpeed;
+                for(SnakeSegment segment: segments){
+                    segment.x += movementSpeed;
+                    segment.right_x += movementSpeed;
+                }
             }
             if(KeyHandler.leftPressed){
-                x -= movementSpeed;
-                right_x -= movementSpeed;
+                for(SnakeSegment segment: segments){
+                    segment.x -= movementSpeed;
+                    segment.right_x -= movementSpeed;
+                }
             }
         } else{
             PlayManager.isGameOver = true;
@@ -74,7 +92,9 @@ public class SnakeBody {
 
     public void drawBody(Graphics2D g){
         g.setColor(Color.blue);
-        g.fillRect(x, y, size, size);
+//        g.fillRect(x, y, size, size);
+        g.fillRect(segments.getFirst().x, segments.getFirst().y, SnakeSegment.size, SnakeSegment.size );
+        g.fillRect(head.x, head.y,  SnakeSegment.size, SnakeSegment.size );
 
     }
 }

@@ -1,10 +1,9 @@
 package Snake;
 
 public class SnakeSegment {
-    int size;
+    public static int size = 35;
     int x;
     int y;
-    public SnakeSegment(){
-
-    }
+    int right_x;
+    int bottom_y;
 }
