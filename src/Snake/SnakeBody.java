@@ -1,7 +1,6 @@
 package Snake;
 
 import java.awt.*;
-import java.security.Key;
 import java.util.ArrayList;
 
 import Main.GamePanel;
@@ -14,6 +13,7 @@ public class SnakeBody {
     int movementSpeed = 5;
     boolean leftEdgeCollision, rightEdgeCollision, topEdgeCollision, bottomEdgeCollision;
     public static ArrayList<SnakeSegment> segments = new ArrayList<>();
+    public static ArrayList<SnakeSegment> tempSegments = new ArrayList<>();
     SnakeSegment head;
     SnakeSegment tail;
 
@@ -59,7 +59,7 @@ public class SnakeBody {
         }
         if(KeyHandler.downPressed){
             nextSegment.x = tail.x;
-            nextSegment.y = tail.x + SnakeSegment.size;
+            nextSegment.y = tail.y - SnakeSegment.size;
             nextSegment.bottom_y = nextSegment.y + SnakeSegment.size;
             nextSegment.right_x = nextSegment.x + SnakeSegment.size;
         }
@@ -94,28 +94,80 @@ public class SnakeBody {
 
         if(!leftEdgeCollision && !rightEdgeCollision && !topEdgeCollision && !bottomEdgeCollision ){
             if(KeyHandler.downPressed){
-                for(SnakeSegment segment: segments){
-                    segment.y += movementSpeed;
-                    segment.bottom_y += movementSpeed;
+                tempSegments.clear(); // Clear any previous data in tempSegments
+                for (SnakeSegment segment : segments) {
+                    tempSegments.add(new SnakeSegment(segment.x, segment.y, segment.right_x, segment.bottom_y));
                 }
+                head.y += movementSpeed;
+                head.bottom_y += movementSpeed;
+                for (int i = 1; i < segments.size(); i++) {
+                    segments.get(i).x = tempSegments.get(i - 1).x;
+                    segments.get(i).y = tempSegments.get(i - 1).y;
+                    segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
+                    segments.get(i).right_x = tempSegments.get(i - 1).right_x;
+                }
+                tempSegments.clear();
+//                for(SnakeSegment segment: segments){
+//                    segment.y += movementSpeed;
+//                    segment.bottom_y += movementSpeed;
+//                }
             }
             if(KeyHandler.upPressed){
-                for(SnakeSegment segment: segments){
-                    segment.y -= movementSpeed;
-                    segment.bottom_y -= movementSpeed;
+                tempSegments.clear(); // Clear any previous data in tempSegments
+                for (SnakeSegment segment : segments) {
+                    tempSegments.add(new SnakeSegment(segment.x, segment.y, segment.right_x, segment.bottom_y));
                 }
+                head.y -= movementSpeed;
+                head.bottom_y -= movementSpeed;
+
+                for (int i = 1; i < segments.size(); i++) {
+                    segments.get(i).x = tempSegments.get(i - 1).x;
+                    segments.get(i).y = tempSegments.get(i - 1).y;
+                    segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
+                    segments.get(i).right_x = tempSegments.get(i - 1).right_x;
+                }
+//                for(SnakeSegment segment: segments){
+//                    segment.y -= movementSpeed;
+//                    segment.bottom_y -= movementSpeed;
+//                }
             }
             if(KeyHandler.rightPressed){
-                for(SnakeSegment segment: segments){
-                    segment.x += movementSpeed;
-                    segment.right_x += movementSpeed;
+                tempSegments.clear(); // Clear any previous data in tempSegments
+                for (SnakeSegment segment : segments) {
+                    tempSegments.add(new SnakeSegment(segment.x, segment.y, segment.right_x, segment.bottom_y));
                 }
+                head.x += movementSpeed;
+                head.right_x += movementSpeed;
+
+                for (int i = 1; i < segments.size(); i++) {
+                    segments.get(i).x = tempSegments.get(i - 1).x;
+                    segments.get(i).y = tempSegments.get(i - 1).y;
+                    segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
+                    segments.get(i).right_x = tempSegments.get(i - 1).right_x;
+                }
+//                for(SnakeSegment segment: segments){
+//                    segment.x += movementSpeed;
+//                    segment.right_x += movementSpeed;
+//                }
             }
             if(KeyHandler.leftPressed){
-                for(SnakeSegment segment: segments){
-                    segment.x -= movementSpeed;
-                    segment.right_x -= movementSpeed;
+                tempSegments.clear(); // Clear any previous data in tempSegments
+                for (SnakeSegment segment : segments) {
+                    tempSegments.add(new SnakeSegment(segment.x, segment.y, segment.right_x, segment.bottom_y));
                 }
+                head.x -= movementSpeed;
+                head.right_x -= movementSpeed;
+
+                for (int i = 1; i < segments.size(); i++) {
+                    segments.get(i).x = tempSegments.get(i - 1).x;
+                    segments.get(i).y = tempSegments.get(i - 1).y;
+                    segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
+                    segments.get(i).right_x = tempSegments.get(i - 1).right_x;
+                }
+//                for(SnakeSegment segment: segments){
+//                    segment.x -= movementSpeed;
+//                    segment.right_x -= movementSpeed;
+//                }
             }
         } else{
             PlayManager.isGameOver = true;
@@ -126,9 +178,8 @@ public class SnakeBody {
 
     public void drawBody(Graphics2D g){
         g.setColor(Color.blue);
-//        g.fillRect(head.x, head.y,  SnakeSegment.size, SnakeSegment.size );
 
-        System.out.println(segments.size());
+//        System.out.println(segments.size());
         for (SnakeSegment segment : segments){
             g.fillRect(segment.x, segment.y, SnakeSegment.size, SnakeSegment.size);
         }
