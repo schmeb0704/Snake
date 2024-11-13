@@ -36,8 +36,8 @@ public class PlayManager {
     }
 
     private void randomizeFoodCoords(){
-        food_start_x = (int) Math.floor(Math.random() * GamePanel.WIDTH);
-        food_start_y = (int) Math.floor(Math.random() * GamePanel.HEIGHT);
+        food_start_x = (int) Math.floor(Math.random() * (GamePanel.WIDTH - SnakeBody.size));
+        food_start_y = (int) Math.floor(Math.random() * (GamePanel.HEIGHT - SnakeBody.size));
     }
 
     private void gameRestart(){

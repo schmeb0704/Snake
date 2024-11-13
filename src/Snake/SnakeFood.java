@@ -15,8 +15,8 @@ public class SnakeFood {
     }
 
     public static void updateCoordinates(){
-        int new_x = (int) Math.floor(Math.random() * GamePanel.WIDTH);
-        int new_y = (int) Math.floor(Math.random() * GamePanel.HEIGHT);
+        int new_x = (int) Math.floor(Math.random() * (GamePanel.WIDTH - SnakeBody.size));
+        int new_y = (int) Math.floor(Math.random() * (GamePanel.HEIGHT - SnakeBody.size));
 
         x = new_x;
         y = new_y;
