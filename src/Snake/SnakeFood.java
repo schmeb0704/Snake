@@ -8,10 +8,15 @@ public class SnakeFood {
     public static int x, y;
     static int size = 15;
     public static boolean isEaten = false;
+    public static int numEaten = 0;
 
     public void setCoordinates(int x, int y){
         SnakeFood.x = x;
         SnakeFood.y = y;
+    }
+
+    public static void resetNumEaten(){
+        numEaten = 0;
     }
 
     public static void updateCoordinates(){
