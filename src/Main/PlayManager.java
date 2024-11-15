@@ -4,6 +4,7 @@ import DrawingHelpers.PlayArea;
 import Snake.SnakeFood;
 import Snake.SnakeBody;
 import Utils.KeyHandler;
+import Score.Score;
 
 import java.awt.*;
 
@@ -20,6 +21,7 @@ public class PlayManager {
     int food_start_y;
     SnakeBody body;
     SnakeFood food;
+    Score score;
     public static boolean isGameOver = false;
 
     public PlayManager(){
@@ -28,6 +30,8 @@ public class PlayManager {
 
         body = new SnakeBody();
         body.setXY(SNAKE_START_X, SNAKE_START_Y);
+
+        score = new Score();
 
         food = new SnakeFood();
         randomizeFoodCoords();
@@ -42,8 +46,10 @@ public class PlayManager {
 
     private void gameRestart(){
         body.setXY(SNAKE_START_X, SNAKE_START_Y);
+        body.resetBody();
         randomizeFoodCoords();
         food.setCoordinates(food_start_x, food_start_y);
+        score.resetScore();
         KeyHandler.restartPressed = false;
         isGameOver = false;
     }
@@ -68,6 +74,9 @@ public class PlayManager {
 
         // draw food
         food.drawFood(graphics);
+
+        // draw score
+        score.drawScore(graphics);
 
         // draw paused
         if(isGameOver){

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Main.GamePanel;
 import Main.PlayManager;
+import Score.Score;
 import Utils.KeyHandler;
 
 public class SnakeBody {
@@ -18,7 +19,13 @@ public class SnakeBody {
     SnakeSegment tail;
 
     public SnakeBody(){
-        segments.add(new SnakeSegment());
+        createSnakeEnds();
+    }
+
+    public void createSnakeEnds() {
+        segments.clear(); // Clear any existing segments
+        SnakeSegment initialSegment = new SnakeSegment(0, 0, SnakeSegment.size, SnakeSegment.size); // Starting position
+        segments.add(initialSegment);
         head = segments.getFirst();
         tail = segments.getLast();
     }
@@ -85,6 +92,8 @@ public class SnakeBody {
             SnakeFood.isEaten = true;
             SnakeFood.updateCoordinates();
             addSegment();
+            SnakeFood.numEaten++;
+            Score.updateScore();
         }
     }
 
@@ -107,10 +116,6 @@ public class SnakeBody {
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
                 }
                 tempSegments.clear();
-//                for(SnakeSegment segment: segments){
-//                    segment.y += movementSpeed;
-//                    segment.bottom_y += movementSpeed;
-//                }
             }
             if(KeyHandler.upPressed){
                 tempSegments.clear(); // Clear any previous data in tempSegments
@@ -126,10 +131,6 @@ public class SnakeBody {
                     segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
                 }
-//                for(SnakeSegment segment: segments){
-//                    segment.y -= movementSpeed;
-//                    segment.bottom_y -= movementSpeed;
-//                }
             }
             if(KeyHandler.rightPressed){
                 tempSegments.clear(); // Clear any previous data in tempSegments
@@ -145,10 +146,6 @@ public class SnakeBody {
                     segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
                 }
-//                for(SnakeSegment segment: segments){
-//                    segment.x += movementSpeed;
-//                    segment.right_x += movementSpeed;
-//                }
             }
             if(KeyHandler.leftPressed){
                 tempSegments.clear(); // Clear any previous data in tempSegments
@@ -164,14 +161,19 @@ public class SnakeBody {
                     segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
                 }
-//                for(SnakeSegment segment: segments){
-//                    segment.x -= movementSpeed;
-//                    segment.right_x -= movementSpeed;
-//                }
             }
         } else{
             PlayManager.isGameOver = true;
         }
+    }
+
+    public void resetBody(){
+        segments.clear();
+        createSnakeEnds();
+        int gridSize = SnakeBody.size; // Assuming SnakeBody.size is the size of one segment
+        int new_x = (int) Math.floor(Math.random() * (((double) GamePanel.WIDTH / gridSize) - 1)) * gridSize;
+        int new_y = (int) Math.floor(Math.random() * (((double) GamePanel.HEIGHT / gridSize) - 1)) * gridSize;
+        setXY(new_x, new_y);
     }
 
 
@@ -179,9 +181,14 @@ public class SnakeBody {
     public void drawBody(Graphics2D g){
         g.setColor(Color.blue);
 
-//        System.out.println(segments.size());
+        final int MARGIN = 2;
+
         for (SnakeSegment segment : segments){
-            g.fillRect(segment.x, segment.y, SnakeSegment.size, SnakeSegment.size);
+            g.fillRect(segment.x + MARGIN, segment.y + MARGIN, SnakeSegment.size - (2* MARGIN), SnakeSegment.size - (2* MARGIN));
+
+            g.setColor(Color.white); // Border color
+            g.drawRect(segment.x + MARGIN, segment.y + MARGIN,
+                    SnakeSegment.size - (2 * MARGIN), SnakeSegment.size - (2 * MARGIN));
         }
 
     }
