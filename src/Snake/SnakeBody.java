@@ -111,7 +111,7 @@ public class SnakeBody {
                 head.bottom_y += movementSpeed;
                 for (int i = 1; i < segments.size(); i++) {
                     segments.get(i).x = tempSegments.get(i - 1).x;
-                    segments.get(i).y = tempSegments.get(i - 1).y;
+                    segments.get(i).y = (tempSegments.get(i - 1).y - SnakeSegment.size) + movementSpeed * 2;
                     segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
                 }
@@ -127,7 +127,7 @@ public class SnakeBody {
 
                 for (int i = 1; i < segments.size(); i++) {
                     segments.get(i).x = tempSegments.get(i - 1).x;
-                    segments.get(i).y = tempSegments.get(i - 1).y;
+                    segments.get(i).y = (tempSegments.get(i - 1).y + SnakeSegment.size) - movementSpeed * 2;
                     segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
                 }
@@ -141,7 +141,7 @@ public class SnakeBody {
                 head.right_x += movementSpeed;
 
                 for (int i = 1; i < segments.size(); i++) {
-                    segments.get(i).x = tempSegments.get(i - 1).x;
+                    segments.get(i).x = (tempSegments.get(i - 1).x - SnakeSegment.size) + movementSpeed * 2;
                     segments.get(i).y = tempSegments.get(i - 1).y;
                     segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
@@ -156,7 +156,7 @@ public class SnakeBody {
                 head.right_x -= movementSpeed;
 
                 for (int i = 1; i < segments.size(); i++) {
-                    segments.get(i).x = tempSegments.get(i - 1).x;
+                    segments.get(i).x = (tempSegments.get(i - 1).x + SnakeSegment.size) - movementSpeed * 2;
                     segments.get(i).y = tempSegments.get(i - 1).y;
                     segments.get(i).bottom_y = tempSegments.get(i - 1).bottom_y;
                     segments.get(i).right_x = tempSegments.get(i - 1).right_x;
